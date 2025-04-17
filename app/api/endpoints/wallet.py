@@ -1,8 +1,13 @@
 from fastapi import APIRouter, Depends
+from fastapi_pagination import Page
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.integrations import get_wallet_from_address
-from app.api.schemas import WalletAddressCreateSchema, WalletInfoCreateSchema
+from app.api.schemas import (
+    WalletAddressCreateSchema,
+    WalletAddressDBSchema,
+    WalletInfoCreateSchema,
+)
 from app.core.db import get_async_session
 from app.services import wallet_address_service, wallet_info_service
 
@@ -29,7 +34,6 @@ async def saving_wallet_status(
 @router.get("/")
 async def receiving_wallets_with_status(
     session: AsyncSession = Depends(get_async_session),
-):
+) -> Page[WalletAddressDBSchema]:
     wallets_with_info = await wallet_address_service.get_multi(session)
-
     return wallets_with_info

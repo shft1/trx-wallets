@@ -1,3 +1,4 @@
+from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -10,8 +11,7 @@ from app.services.base import BaseService
 class WalletAddressService(BaseService):
     async def get_multi(self, session: AsyncSession):
         stmt = select(self.model).options(selectinload(self.model.wallet_info))
-        wallets_with_info = (await session.execute(stmt)).scalars().all()
-        return wallets_with_info
+        return await paginate(session, stmt)
 
     async def get_or_create(
         self, address: WalletAddressCreateSchema, session: AsyncSession

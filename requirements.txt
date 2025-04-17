@@ -14,6 +14,7 @@ email_validator==2.2.0
 fastapi==0.115.11
 fastapi-users==14.0.1
 fastapi-users-db-sqlalchemy==7.0.0
+fastapi-pagination==0.12.34
 greenlet==3.1.1
 h11==0.14.0
 httptools==0.6.4
