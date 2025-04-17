@@ -20,10 +20,10 @@ class WalletData(WalletBase):
 def is_correct(value: str):
     if not value.startswith("T"):
         raise ValueError("Адрес кошелька должен начинаться с 'T'!")
-    if len(value) != 33:
+    if len(value) != 34:
         raise ValueError("Неккоректный адрес кошелька!")
     return value
 
 
 class WalletAddress(BaseModel):
-    adress: Annotated[str, AfterValidator(is_correct)]
+    address: Annotated[str, AfterValidator(is_correct)]
