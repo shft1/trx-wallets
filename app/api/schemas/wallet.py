@@ -3,17 +3,17 @@ from typing import Annotated
 from pydantic import AfterValidator, BaseModel, ConfigDict
 
 
-class WalletBase(BaseModel):
+class WalletBaseSchema(BaseModel):
     bandwidth: int
     energy: int
     balance: float
 
 
-class WalletDB(WalletBase):
+class WalletDB(WalletBaseSchema):
     model_config = ConfigDict(from_attributes=True)
 
 
-class WalletData(WalletBase):
+class WalletInfoSchema(WalletBaseSchema):
     pass
 
 
@@ -25,5 +25,5 @@ def is_correct(value: str):
     return value
 
 
-class WalletAddress(BaseModel):
+class WalletAddressSchema(BaseModel):
     address: Annotated[str, AfterValidator(is_correct)]
