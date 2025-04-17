@@ -1,1 +1,1 @@
-from app.models.wallet import Wallet  # noqa
+from app.models.wallet import WalletModel  # noqa
