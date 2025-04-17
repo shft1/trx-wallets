@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.api.schemas import WalletAddressSchema
+from app.api.schemas.wallet_address import WalletAddressCreateSchema
 from app.models import WalletAddress
 from app.services.base import BaseService
 
@@ -14,7 +14,7 @@ class WalletAddressService(BaseService):
         return wallets_with_info
 
     async def get_or_create(
-        self, address: WalletAddressSchema, session: AsyncSession
+        self, address: WalletAddressCreateSchema, session: AsyncSession
     ):
         stmt = select(self.model).where(self.model.address == address.address)
         wallet_address = (await session.execute(stmt)).scalars().first()

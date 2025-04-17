@@ -2,19 +2,7 @@ from typing import Annotated
 
 from pydantic import AfterValidator, BaseModel, ConfigDict
 
-
-class WalletBaseSchema(BaseModel):
-    bandwidth: int
-    energy: int
-    balance: float
-
-
-class WalletDB(WalletBaseSchema):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class WalletInfoSchema(WalletBaseSchema):
-    pass
+from app.api.schemas.wallet_info import WalletInfoDBSchema
 
 
 def is_correct(value: str):
@@ -25,5 +13,11 @@ def is_correct(value: str):
     return value
 
 
-class WalletAddressSchema(BaseModel):
+class WalletAddressCreateSchema(BaseModel):
     address: Annotated[str, AfterValidator(is_correct)]
+
+
+class WalletAddressDBSchema(WalletAddressCreateSchema):
+    model_config = ConfigDict(from_attributes=True)
+
+    wallet_info: list[WalletInfoDBSchema]
