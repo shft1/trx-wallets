@@ -7,6 +7,7 @@ from app.api.schemas import (
     WalletAddressCreateSchema,
     WalletAddressDBSchema,
     WalletInfoCreateSchema,
+    WalletInfoDBSchema,
 )
 from app.core.db import get_async_session
 from app.services import wallet_address_service, wallet_info_service
@@ -18,7 +19,7 @@ router = APIRouter()
 async def saving_wallet_status(
     address: WalletAddressCreateSchema,
     session: AsyncSession = Depends(get_async_session),
-):
+) -> WalletInfoDBSchema:
     info_dict = await get_wallet_from_address(address.address)
     info = WalletInfoCreateSchema(**info_dict)
 
