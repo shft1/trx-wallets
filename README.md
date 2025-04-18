@@ -10,7 +10,7 @@
 **Клонируйте репозиторий:**
 
 ```
-git@github.com:shft1/trx-wallets.git
+git clone git@github.com:shft1/trx-wallets.git
 ```
 
 **Создайте и активируйте виртуальное окружение:**
